@@ -112,7 +112,7 @@ function main() {
         var rom = {
             name: option.text,
             path: option.value
-        }
+        };
         if (romList.includes(rom.name)) start(rom.name);
         else {
             Module.setStatus('Downloading...');
@@ -122,7 +122,7 @@ function main() {
             }).then(data => {
                 Module.setStatus('');
                 const filename = rom.path.substr(rom.path.lastIndexOf('/') + 1);
-                console.log('downloaded: ' + filename)
+                console.log('downloaded: ' + filename);
                 FS.writeFile(filename, new Uint8Array(data));
                 romList.push(filename);
                 start(filename);
