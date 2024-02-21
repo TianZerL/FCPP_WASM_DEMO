@@ -124,7 +124,7 @@ function main() {
                 const filename = rom.path.substr(rom.path.lastIndexOf('/') + 1);
                 console.log('downloaded: ' + filename)
                 FS.writeFile(filename, new Uint8Array(data));
-                addNameToRomList(filename);
+                romList.push(filename);
                 start(filename);
             })
         }
