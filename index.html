@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Emscripten-Generated Code</title>
   <style>
     /* dark mode */
@@ -117,27 +117,19 @@
   </div>
   <div class="emscripten">
     <p>
-      Upload or drag your ROM
+      Select a rom from ROM list, or upload or drag your ROM
     </p>
   </div>
   <div class="emscripten">
-    <input type="file" id="uploadROM" style="display: none;" />
+    <input type="file" id="uploadROM" accept=".nes" aria-label="upload" style="display: none;" />
     <input type="button" value="Upload" onclick="document.getElementById('uploadROM').click();" />
-    <select id="romList">
+    <select id="romList" aria-label="rom list">
       <option selected disabled value="">ROM List</option>
       <option value="roms/nova.nes">nova.nes</option>
     </select>
   </div>
-  <div class="emscripten">
-    <input type="checkbox" id="resize">Resize canvas
-    <input type="checkbox" id="pointerLock" checked>Lock/hide mouse pointer
-    &nbsp;&nbsp;&nbsp;
-    <input type="button" value="Fullscreen"
-      onclick="Module.requestFullscreen(document.getElementById('pointerLock').checked, document.getElementById('resize').checked)">
-  </div>
-
   <hr />
-  <textarea class="emscripten" id="output" rows="8"></textarea>
+  <textarea class="emscripten" id="output" rows="8" aria-label="Terminal Output"></textarea>
   <hr />
   <div class="emscripten">
     <p>
@@ -145,12 +137,10 @@
       <a href="https://github.com/NovaSquirrel/NovaTheSquirrel">Nova the Squirrel,</a>
       an open source NES platformer game.
     </p>
-
     <p>
       Powered by FCPP. A cross-platform, simple and accurate FC/NES emulator in C++.
       <a href="https://github.com/TianZerL/FCPP">Source on GitHub.</a>
     </p>
-
   </div>
   <script type="text/javascript" src="setup.js"></script>
   <script async src=fcpp_test_wasm.js></script>

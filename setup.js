@@ -14,11 +14,6 @@ function main() {
             if (element) element.value = ''; // clear browser cache
             return (...args) => {
                 var text = args.join(' ');
-                // These replacements are necessary if you render to raw HTML
-                //text = text.replace(/&/g, '&amp;');
-                //text = text.replace(/</g, '&lt;');
-                //text = text.replace(/>/g, '&gt;');
-                //text = text.replace('\n', '<br>', 'g');
                 console.log(text);
                 if (element) {
                     element.value += text + '\n';
@@ -89,11 +84,11 @@ function main() {
 
     function loadRom(rom) {
         if (rom) {
-            console.log('upload:' + rom.name);
             var reader = new FileReader();
             reader.onload = e => {
                 FS.writeFile(rom.name, new Uint8Array(e.target.result));
                 addNameToRomList(rom.name);
+                console.log('Uploaded:' + rom.name);
                 start(rom.name);
             };
             reader.readAsArrayBuffer(rom);
@@ -116,15 +111,16 @@ function main() {
         if (romList.includes(rom.name)) start(rom.name);
         else {
             Module.setStatus('Downloading...');
-            fetch(rom.path).then(res => {
-                if (!res.ok) Module.setStatus('Failed to download');
-                return res.arrayBuffer();
-            }).then(data => {
-                Module.setStatus('');
-                const filename = rom.path.substr(rom.path.lastIndexOf('/') + 1);
-                console.log('downloaded: ' + filename);
+            fetch(rom.path).then(res => res.arrayBuffer()).then(data => {
+                if (!data) {
+                    Module.setStatus('Failed to download');
+                    return
+                }
+                var filename = rom.path.substr(rom.path.lastIndexOf('/') + 1);
                 FS.writeFile(filename, new Uint8Array(data));
                 romList.push(filename);
+                console.log('Downloaded: ' + filename);
+                Module.setStatus('');
                 start(filename);
             })
         }
