@@ -5,6 +5,6 @@
 # Build
 ```shell
 mkdir build && cd build
-emcmake cmake .. -DFCPP_EMSCRIPTEN_PRESET=ON -DFCPP_BUILD_TEST_WASM_EMBIND=ON
+emcmake cmake .. -DFCPP_PRESET_EMSCRIPTEN=ON -DFCPP_BUILD_TEST_WASM_EMBIND=ON
 emmake make
 ```
